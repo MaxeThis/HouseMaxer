@@ -1,0 +1,53 @@
+# Put the Roborock on your own floor plan, live.
+#
+# Every 5 s while it cleans, ask the Roborock integration where the robot is
+# (in its own map units, mm) and convert that to floor-plan feet with a 2x3
+# affine transform. Get M and t from tracking/fit_robot_transform.py.
+#
+#   plan_ft = M @ [raw_x_mm, raw_y_mm] + t
+#
+# Change vacuum.my_roborock and the six numbers below.
+
+input_number:
+  roborock_x_ft: {name: Roborock x (ft), min: -100, max: 200, step: 0.01, mode: box}
+  roborock_y_ft: {name: Roborock y (ft), min: -100, max: 200, step: 0.01, mode: box}
+
+automation:
+  - id: roborock_live_position
+    alias: Roborock - live position
+    mode: single
+    max_exceeded: silent
+    triggers:
+      - trigger: time_pattern
+        seconds: /5
+        id: tick
+      - trigger: state
+        entity_id: vacuum.my_roborock
+        id: change
+    conditions:
+      - condition: template
+        value_template: >-
+          {{ trigger.id == 'change' or states('vacuum.my_roborock') in ['cleaning', 'returning'] }}
+    actions:
+      - action: roborock.get_vacuum_current_position
+        target: {entity_id: vacuum.my_roborock}
+        response_variable: pos
+      - variables:
+          rx: "{{ pos['vacuum.my_roborock'].x }}"
+          ry: "{{ pos['vacuum.my_roborock'].y }}"
+          # M = [[m00, m01], [m10, m11]], t = [tx, ty]  (from fit_robot_transform.py)
+          # Example values (mm -> ft, mirrored). Replace with yours.
+          m00: -0.00328
+          m01: 0.0
+          m10: 0.0
+          m11: 0.00328
+          tx: 84.0
+          ty: -84.0
+      - action: input_number.set_value
+        target: {entity_id: input_number.roborock_x_ft}
+        data:
+          value: "{{ (m00 * rx + m01 * ry + tx) | round(2) }}"
+      - action: input_number.set_value
+        target: {entity_id: input_number.roborock_y_ft}
+        data:
+          value: "{{ (m10 * rx + m11 * ry + ty) | round(2) }}"

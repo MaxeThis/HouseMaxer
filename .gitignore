@@ -1,0 +1,35 @@
+# Never commit secrets
+secrets.yaml
+**/secrets.yaml
+.env
+*.token
+.ha_token
+*.pem
+*.key
+
+# Your own home's layout and calibration (anywhere in the repo)
+floorplan*.json
+!tracking/floorplan.example.json
+calib*.json
+samples*.jsonl
+points*.json
+transform*.json
+roborock_calibration.json
+apartment_spec*.json
+devices.json
+inventory.md
+build_apartment*.py
+*.usdz
+*.obj
+*.glb
+*.blend
+*.blend1
+roborock_calib/
+
+# Build output and caches
+__pycache__/
+*.pyc
+.esphome/
+esphome/build/
+node_modules/
+.DS_Store

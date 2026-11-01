@@ -1,0 +1,26 @@
+{
+  "_comment": "Made-up one-bedroom plan with an office. Feet, origin top-left, y down. Rooms are boxes; doors cut gaps in a box edge.",
+  "width_ft": 36,
+  "height_ft": 24,
+  "rooms": [
+    {"name": "Bedroom",  "x": 0,  "y": 0,  "w": 12, "h": 12},
+    {"name": "Bath",     "x": 0,  "y": 12, "w": 12, "h": 12},
+    {"name": "Living",   "x": 12, "y": 0,  "w": 14, "h": 24},
+    {"name": "Kitchen",  "x": 26, "y": 0,  "w": 10, "h": 10},
+    {"name": "Office",   "x": 26, "y": 10, "w": 10, "h": 14}
+  ],
+  "doors": [
+    {"wall": "v", "at": 12, "center": 6,  "width": 3},
+    {"wall": "h", "at": 12, "center": 4,  "width": 3},
+    {"wall": "v", "at": 26, "center": 17, "width": 3}
+  ],
+  "openings": [
+    {"wall": "v", "at": 26, "from": 1, "to": 9}
+  ],
+  "scanners": {
+    "ble_scanner_aaaaaa": {"x": 2,  "y": 2,  "z_m": 0.8},
+    "ble_scanner_bbbbbb": {"x": 18, "y": 22, "z_m": 0.4},
+    "ble_scanner_cccccc": {"x": 34, "y": 2,  "z_m": 1.0},
+    "ble_scanner_dddddd": {"x": 34, "y": 22, "z_m": 0.4}
+  }
+}

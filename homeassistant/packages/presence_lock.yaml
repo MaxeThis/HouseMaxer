@@ -1,0 +1,221 @@
+# Walk-up unlock + lock on leave for an August / Yale Wi-Fi lock.
+#
+# The idea: a one-shot "away latch". It only arms when the house has really
+# lost your phone, and it clears the moment the door unlocks. So the door can
+# unlock itself once when you walk up, and never again until you leave again.
+#
+# Change these entity IDs to yours:
+#   lock.front_door                  August / Yale lock
+#   binary_sensor.front_door_door    DoorSense (open/closed) from the same lock
+#   device_tracker.my_phone_wifi     phone on home Wi-Fi (ASUS router integration)
+#   device_tracker.my_phone_ble      phone seen over Bluetooth (Bermuda)
+#   sensor.my_phone_ble_distance     Bermuda distance to the nearest scanner (ft)
+#   sensor.my_phone_ble_nearest_scanner
+#
+# Distances are in feet (Bermuda uses metres if your Home Assistant is set to
+# metric: convert the numbers below). Tune them: stand outside your door and
+# read sensor.my_phone_ble_distance, then stand where you park. Pick an "at the
+# door" number a little above the first reading, and a "gone" number between
+# the two. Ours were 25 ft and 40 ft.
+#
+# Needs bedtime.yaml too (it defines script.away).
+
+input_boolean:
+  away_latch:
+    name: Away latch
+    icon: mdi:door-closed-lock
+
+script:
+  unlock_briefly:
+    alias: Unlock briefly
+    description: Unlock, wait a minute, then lock again once the door is shut.
+    mode: single
+    sequence:
+      - action: lock.unlock
+        target: {entity_id: lock.front_door}
+      - delay: {seconds: 60}
+      # Don't throw the bolt into an open door: wait (up to 10 min) for DoorSense to read closed.
+      - wait_template: "{{ is_state('binary_sensor.front_door_door', 'off') }}"
+        timeout: {minutes: 10}
+        continue_on_timeout: false
+      - delay: {seconds: 3}
+      - action: lock.lock
+        target: {entity_id: lock.front_door}
+
+automation:
+  - id: away_latch_set
+    alias: Away latch - set
+    description: >-
+      Arm only when the house has really lost the phone. Bluetooth alone is not
+      enough: a FaceTime call once made the BLE tracker report not_home while
+      the phone was 18 ft away, which armed the latch and unlocked the door.
+      And Wi-Fi alone is not enough either: phones drop off Wi-Fi for a moment
+      while asleep. So arming needs both: the phone is off the home Wi-Fi AND
+      Bluetooth either can't hear it or reads it as far away.
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: sensor.my_phone_ble_nearest_scanner
+        to: unknown
+        for: "00:02:00"
+      - trigger: state
+        entity_id: device_tracker.my_phone_ble
+        to: not_home
+      - trigger: state
+        entity_id: device_tracker.my_phone_wifi
+        to: not_home
+      - trigger: numeric_state
+        entity_id: sensor.my_phone_ble_distance
+        above: 40
+    conditions:
+      - condition: template
+        value_template: >-
+          {% set d = states('sensor.my_phone_ble_distance') %}
+          {{ is_state('device_tracker.my_phone_wifi', 'not_home')
+             and (not is_number(d) or d | float > 40) }}
+    actions:
+      - action: input_boolean.turn_on
+        target: {entity_id: input_boolean.away_latch}
+
+  - id: away_latch_clear_on_unlock
+    alias: Away latch - clear on unlock
+    description: Any unlock (auto or by hand) uses up the one shot.
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: lock.front_door
+        to: unlocked
+    actions:
+      - action: input_boolean.turn_off
+        target: {entity_id: input_boolean.away_latch}
+
+  - id: away_latch_self_heal
+    alias: Away latch - self-heal
+    description: If the latch is on but the phone has been home on both Wi-Fi and BLE for 10 min, clear it.
+    mode: single
+    triggers:
+      - trigger: time_pattern
+        minutes: /5
+    conditions:
+      - condition: state
+        entity_id: input_boolean.away_latch
+        state: "on"
+      - condition: state
+        entity_id: device_tracker.my_phone_wifi
+        state: home
+      - condition: template
+        value_template: >-
+          {{ is_state('device_tracker.my_phone_ble', 'home') and
+             (now() - states.device_tracker.my_phone_ble.last_changed).total_seconds() > 600 }}
+    actions:
+      - action: input_boolean.turn_off
+        target: {entity_id: input_boolean.away_latch}
+
+  - id: walk_up_unlock
+    alias: Unlock when back
+    description: >-
+      Fires only when the phone is close to the door for 3 s while the latch is
+      armed. No GPS. Where we park reads well over 40 ft, so it cannot fire
+      from the car.
+    mode: single
+    triggers:
+      - trigger: numeric_state
+        entity_id: sensor.my_phone_ble_distance
+        below: 25
+        for: "00:00:03"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.away_latch
+        state: "on"
+    actions:
+      - action: script.unlock_briefly
+
+  - id: lock_on_leave
+    alias: Lock on leave
+    description: Phone leaves home Wi-Fi and the door is shut -> lock it.
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: device_tracker.my_phone_wifi
+        from: home
+        to: not_home
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.front_door_door
+        state: "off"   # off = closed
+    actions:
+      - action: lock.lock
+        target: {entity_id: lock.front_door}
+
+  - id: leaving_away
+    alias: Leaving - Away
+    description: Latch on for 10 min and both Wi-Fi and BLE agree you are gone -> run the away scene.
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: input_boolean.away_latch
+        to: "on"
+        for: "00:10:00"
+    conditions:
+      - condition: template
+        value_template: >-
+          {{ is_state('device_tracker.my_phone_wifi', 'not_home') and
+             is_state('device_tracker.my_phone_ble', 'not_home') }}
+    actions:
+      - action: script.away
+
+  - id: arrival_lights
+    alias: Arrival lights
+    description: Door unlocks while you were away (or just got back) -> entry lights on.
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: lock.front_door
+        to: unlocked
+    conditions:
+      - condition: template
+        value_template: >-
+          {{ is_state('device_tracker.my_phone_wifi', 'not_home') or
+             (now() - states.device_tracker.my_phone_wifi.last_changed).total_seconds() < 60 }}
+    actions:
+      - action: light.turn_on
+        target: {entity_id: [light.living_room, light.entry]}
+
+  - id: front_door_lock_self_heal
+    alias: Front door lock self-heal
+    description: >-
+      The August cloud link sometimes drops after a router or HA restart. If the
+      lock is unavailable for 5 min, reload the integration; keep retrying every
+      15 min and leave a notification if it stays down.
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: lock.front_door
+        to: unavailable
+        for: {minutes: 5}
+      - trigger: time_pattern
+        minutes: /15
+    conditions:
+      - condition: state
+        entity_id: lock.front_door
+        state: unavailable
+        for: {minutes: 5}
+    actions:
+      - action: homeassistant.reload_config_entry
+        target: {entity_id: lock.front_door}
+      - delay: {minutes: 2}
+      - if:
+          - condition: state
+            entity_id: lock.front_door
+            state: unavailable
+        then:
+          - action: persistent_notification.create
+            data:
+              notification_id: lock_self_heal
+              title: Front door lock still offline
+              message: >-
+                Home Assistant reloaded the August integration but the lock is
+                still unavailable. It will keep retrying every 15 minutes.
+        else:
+          - action: persistent_notification.dismiss
+            data: {notification_id: lock_self_heal}

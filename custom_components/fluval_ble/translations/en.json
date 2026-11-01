@@ -1,0 +1,25 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add Fluval Light",
+        "description": "Select your Fluval light. Make sure the FluvalSmart phone app is fully closed first — the light only accepts one Bluetooth connection at a time. Fluval devices are marked with ★.",
+        "data": {
+          "address": "Device"
+        }
+      },
+      "configure": {
+        "title": "Configure {name}",
+        "description": "How many colour channels does this light have? Flex and Aquasky are 4 (RGBW); Plant and Marine are usually 5.",
+        "data": {
+          "channels": "Channels"
+        }
+      }
+    },
+    "abort": {
+      "no_devices_found": "No Bluetooth devices found nearby. Make sure the light is powered and the phone app is closed.",
+      "not_supported": "This device does not look like a Fluval light.",
+      "already_configured": "This light is already set up."
+    }
+  }
+}

@@ -1,0 +1,112 @@
+# Bedtime starts when you brush your teeth.
+#
+# The Oral-B integration (built in, Bluetooth) gives the brush a state sensor
+# that reads "running" while it is on. Brushing between 9 PM and 4 AM starts a
+# slow fade: hallway first, then the rest of the house, then the curtains close
+# and the door locks.
+#
+# Change these entity IDs and area IDs to yours:
+#   sensor.oral_b_toothbrush       the brush's state sensor
+#   binary_sensor.front_door_door  DoorSense (only lock a shut door)
+#   scene.<room>_default           the "Default" scene you saved in each Hue room
+#   light.hallway, light.entry     lights to fade first
+#   areas living_room, office      lights to fade next
+#   cover.curtain_left/right       SwitchBot curtains
+#   lock.front_door
+
+script:
+  bedtime:
+    alias: Bedtime
+    description: Fade the hallway first, then living room + office, then curtains and lock.
+    mode: single
+    sequence:
+      - action: light.turn_off
+        data: {transition: 12}
+        target: {entity_id: [light.hallway, light.entry]}
+      # turn_off returns at once; wait for the hallway fade before the next one
+      - delay: {seconds: 12}
+      - action: light.turn_off
+        data: {transition: 12}
+        target: {area_id: [living_room, office]}
+      - action: script.curtains_close
+      - if:
+          - condition: state
+            entity_id: binary_sensor.front_door_door
+            state: "off"
+        then:
+          - action: lock.lock
+            target: {entity_id: lock.front_door}
+
+  goodmorning:
+    alias: Good morning
+    description: Each room back to its Default scene, curtains open.
+    sequence:
+      - action: scene.turn_on
+        target: {entity_id: [scene.bedroom_default, scene.living_room_default, scene.office_default]}
+      - action: script.curtains_open
+
+  away:
+    alias: Away
+    sequence:
+      - action: light.turn_off
+        target: {area_id: [bedroom, living_room, office]}
+      - action: script.curtains_open   # daylight for the plants and the fish
+
+  default_lighting_all:
+    alias: Default lighting (all)
+    sequence:
+      - action: light.turn_on
+        data: {color_temp_kelvin: 5667, brightness_pct: 100}
+        target: {area_id: [bedroom, living_room, office]}
+
+  curtains_open:
+    alias: Curtains - open
+    sequence:
+      - action: cover.open_cover
+        target: {entity_id: [cover.curtain_left, cover.curtain_right]}
+
+  curtains_close:
+    alias: Curtains - close
+    sequence:
+      - action: cover.close_cover
+        target: {entity_id: [cover.curtain_left, cover.curtain_right]}
+
+automation:
+  - id: bedtime_brush
+    alias: Bedtime brush
+    description: Brushing late at night starts the bedtime fade.
+    mode: single
+    max_exceeded: silent
+    triggers:
+      - trigger: state
+        entity_id: sensor.oral_b_toothbrush
+        to: running
+    conditions:
+      - condition: time
+        after: "21:00:00"
+        before: "04:00:00"
+    actions:
+      - action: script.turn_on
+        target: {entity_id: script.bedtime}
+
+  # After a bedtime fade the Hue lights remember their dim level. The first
+  # time a room comes back on, put its default scene back. Copy this automation
+  # once per room (change the id, the light and the scene).
+  - id: restore_living_room_default
+    alias: Restore Living Room default on turn-on
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: light.living_room
+        from: "off"
+        to: "on"
+    conditions:
+      - alias: Only once after a bedtime fade
+        condition: template
+        value_template: >-
+          {% set fade = state_attr('script.bedtime', 'last_triggered') %}
+          {% set me = this.attributes.last_triggered %}
+          {{ fade is not none and (me is none or fade > me) }}
+    actions:
+      - action: scene.turn_on
+        target: {entity_id: scene.living_room_default}

@@ -1,0 +1,180 @@
+# Home Assistant package for the aquarium (Fluval Flex) light.
+# Place in /config/packages/aquarium.yaml and enable packages in
+# configuration.yaml:
+#
+#   homeassistant:
+#     packages: !include_dir_named packages
+#
+# The Fluval controller will not accept schedule writes over BLE from anything
+# but its own phone app (its firmware rejects multi-packet writes). So instead
+# of programming the light's built-in "automatic" mode, Home Assistant runs the
+# schedule itself: every few minutes it computes the right colour for the time
+# of day (with smooth sunrise/sunset ramps) and sets the light in manual mode.
+# This is fully programmable from the dashboard and gives the same result.
+#
+# Change light.aquarium_light to your light's entity ID. Set the times and
+# colours once from the dashboard (or Settings -> Helpers); they are kept
+# across restarts.
+
+input_boolean:
+  aquarium_auto:
+    name: Auto schedule
+    icon: mdi:weather-sunset
+  aquarium_showcase:
+    name: Showcase mode
+    icon: mdi:eye
+  aquarium_edit:
+    name: Edit schedule
+    icon: mdi:pencil
+
+input_datetime:
+  aquarium_sunrise_start:
+    name: Sunrise start
+    has_date: false
+    has_time: true
+  aquarium_sunrise_end:
+    name: Sunrise end (full day)
+    has_date: false
+    has_time: true
+  aquarium_sunset_start:
+    name: Sunset start
+    has_date: false
+    has_time: true
+  aquarium_sunset_end:
+    name: Sunset end (full night)
+    has_date: false
+    has_time: true
+
+input_number:
+  aquarium_day_red: {name: Day Red, min: 0, max: 100, step: 1, unit_of_measurement: "%", mode: slider, icon: mdi:palette}
+  aquarium_day_green: {name: Day Green, min: 0, max: 100, step: 1, unit_of_measurement: "%", mode: slider, icon: mdi:palette}
+  aquarium_day_blue: {name: Day Blue, min: 0, max: 100, step: 1, unit_of_measurement: "%", mode: slider, icon: mdi:palette}
+  aquarium_day_white: {name: Day White, min: 0, max: 100, step: 1, unit_of_measurement: "%", mode: slider, icon: mdi:white-balance-sunny}
+  aquarium_night_red: {name: Night Red, min: 0, max: 100, step: 1, unit_of_measurement: "%", mode: slider, icon: mdi:palette}
+  aquarium_night_green: {name: Night Green, min: 0, max: 100, step: 1, unit_of_measurement: "%", mode: slider, icon: mdi:palette}
+  aquarium_night_blue: {name: Night Blue, min: 0, max: 100, step: 1, unit_of_measurement: "%", mode: slider, icon: mdi:palette}
+  aquarium_night_white: {name: Night White, min: 0, max: 100, step: 1, unit_of_measurement: "%", mode: slider, icon: mdi:weather-night}
+
+script:
+  # Compute the colour for the current time of day and apply it (manual mode).
+  aquarium_apply_now:
+    alias: "Aquarium: Apply schedule now"
+    icon: mdi:calendar-clock
+    sequence:
+      - variables:
+          rgbw: >-
+            {% set nowm = now().hour * 60 + now().minute %}
+            {% set srs = state_attr('input_datetime.aquarium_sunrise_start','timestamp')|int(0) // 60 %}
+            {% set sre = state_attr('input_datetime.aquarium_sunrise_end','timestamp')|int(0) // 60 %}
+            {% set sss = state_attr('input_datetime.aquarium_sunset_start','timestamp')|int(0) // 60 %}
+            {% set sse = state_attr('input_datetime.aquarium_sunset_end','timestamp')|int(0) // 60 %}
+            {% set day = [states('input_number.aquarium_day_red')|float(0), states('input_number.aquarium_day_green')|float(0), states('input_number.aquarium_day_blue')|float(0), states('input_number.aquarium_day_white')|float(0)] %}
+            {% set night = [states('input_number.aquarium_night_red')|float(0), states('input_number.aquarium_night_green')|float(0), states('input_number.aquarium_night_blue')|float(0), states('input_number.aquarium_night_white')|float(0)] %}
+            {% set ns = namespace(p=[]) %}
+            {% if nowm < srs or nowm >= sse %}
+              {% set ns.p = night %}
+            {% elif nowm < sre %}
+              {% set f = (nowm - srs) / ((sre - srs) if (sre > srs) else 1) %}
+              {% for i in range(4) %}{% set ns.p = ns.p + [night[i] + (day[i] - night[i]) * f] %}{% endfor %}
+            {% elif nowm < sss %}
+              {% set ns.p = day %}
+            {% else %}
+              {% set f = (nowm - sss) / ((sse - sss) if (sse > sss) else 1) %}
+              {% for i in range(4) %}{% set ns.p = ns.p + [day[i] + (night[i] - day[i]) * f] %}{% endfor %}
+            {% endif %}
+            {{ [(ns.p[0]*2.55)|round|int, (ns.p[1]*2.55)|round|int, (ns.p[2]*2.55)|round|int, (ns.p[3]*2.55)|round|int] }}
+      - choose:
+          - conditions: "{{ rgbw | max == 0 }}"
+            sequence:
+              - action: light.turn_off
+                target:
+                  entity_id: light.aquarium_light
+        default:
+          - action: light.turn_on
+            target:
+              entity_id: light.aquarium_light
+            data:
+              rgbw_color: "{{ rgbw }}"
+              brightness: 255
+
+  # Dashboard "Apply schedule" button: enable auto and apply immediately.
+  aquarium_apply_schedule:
+    alias: "Aquarium: Save & apply schedule"
+    icon: mdi:calendar-check
+    sequence:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.aquarium_auto
+      - action: script.aquarium_apply_now
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.aquarium_edit
+
+  aquarium_show_guests:
+    alias: "Aquarium: Show guests (bright)"
+    icon: mdi:eye
+    sequence:
+      - action: light.turn_on
+        target:
+          entity_id: light.aquarium_light
+        data:
+          rgbw_color: [255, 255, 255, 255]
+          brightness: 255
+
+automation:
+  # Run the schedule: on start, every 5 minutes, and whenever a schedule value
+  # changes — but only while Auto is on and we are not showing guests.
+  - id: aquarium_schedule_tick
+    alias: "Aquarium schedule tick"
+    mode: single
+    triggers:
+      - trigger: homeassistant
+        event: start
+      - trigger: time_pattern
+        minutes: "/5"
+      - trigger: state
+        entity_id:
+          - input_datetime.aquarium_sunrise_start
+          - input_datetime.aquarium_sunrise_end
+          - input_datetime.aquarium_sunset_start
+          - input_datetime.aquarium_sunset_end
+          - input_number.aquarium_day_red
+          - input_number.aquarium_day_green
+          - input_number.aquarium_day_blue
+          - input_number.aquarium_day_white
+          - input_number.aquarium_night_red
+          - input_number.aquarium_night_green
+          - input_number.aquarium_night_blue
+          - input_number.aquarium_night_white
+          - input_boolean.aquarium_auto
+    conditions:
+      - condition: state
+        entity_id: input_boolean.aquarium_auto
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.aquarium_showcase
+        state: "off"
+    actions:
+      - action: script.aquarium_apply_now
+
+  # Showcase switch: on -> bright white (pauses the schedule); off -> back to the schedule if Auto is on.
+  - id: aquarium_showcase_toggle
+    alias: "Aquarium showcase toggle"
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: input_boolean.aquarium_showcase
+        to: "on"
+        id: turn_on
+      - trigger: state
+        entity_id: input_boolean.aquarium_showcase
+        to: "off"
+        id: turn_off
+    actions:
+      - choose:
+          - conditions: "{{ trigger.id == 'turn_on' }}"
+            sequence:
+              - action: script.aquarium_show_guests
+          - conditions: "{{ trigger.id == 'turn_off' and is_state('input_boolean.aquarium_auto', 'on') }}"
+            sequence:
+              - action: script.aquarium_apply_now

@@ -1,0 +1,86 @@
+{
+  "tag": "housemaxer-20",
+  "disclosure": "> As an Amazon Associate HouseMaxer earns from qualifying purchases. The links below are affiliate links: they cost you nothing extra and help fund the project.",
+  "checked": "2026-11-01",
+  "sections": [
+    {
+      "title": "The brain",
+      "intro": "Pick one of the three: the Green box, a kit, or the parts one by one. [Guide 1](docs/01-raspberry-pi-and-home-assistant.md) explains the difference.",
+      "items": [
+        {"key": "ha_green", "asin": "B0CXVKSG19", "name": "Home Assistant Green", "why": "Plug-and-play: Home Assistant already installed. Easiest way in.", "guide": "docs/01-raspberry-pi-and-home-assistant.md"},
+        {"key": "pi5_kit", "asin": "B0CRSNCJ6Y", "name": "CanaKit Raspberry Pi 5 Starter Kit PRO (8 GB, 128 GB card)", "why": "Every Pi part in one box: board, case, fan, power supply, microSD.", "guide": "docs/01-raspberry-pi-and-home-assistant.md"},
+        {"key": "pi5_8gb", "asin": "B0CK2FCG1K", "name": "Raspberry Pi 5, 8 GB", "why": "The board we use. 4 GB is enough for Home Assistant alone.", "guide": "docs/01-raspberry-pi-and-home-assistant.md"},
+        {"key": "pi5_psu", "asin": "B0D3MFLNC1", "name": "Raspberry Pi 27 W USB-C power supply", "why": "The Pi 5 needs 5 V at 5 A; phone chargers make it limit USB power.", "guide": "docs/01-raspberry-pi-and-home-assistant.md"},
+        {"key": "pi5_cooler", "asin": "B0CLXZBR5P", "name": "Raspberry Pi Active Cooler", "why": "Stops the Pi 5 slowing itself down when it gets hot.", "guide": "docs/01-raspberry-pi-and-home-assistant.md"},
+        {"key": "pi5_case", "asin": "B0CLY2974P", "name": "Official Raspberry Pi 5 case with fan", "why": "Case and cooling in one, instead of the Active Cooler.", "guide": "docs/01-raspberry-pi-and-home-assistant.md"},
+        {"key": "microsd", "asin": "B09X7BK27V", "name": "SanDisk Extreme 128 GB microSD (A2)", "why": "Home Assistant writes to disk all day: buy a good card.", "guide": "docs/01-raspberry-pi-and-home-assistant.md"},
+        {"key": "zigbee_alt", "asin": "B0B6P22YJC", "name": "SONOFF Zigbee USB Dongle Plus (ZBDongle-E)", "why": "Zigbee radio for plugs and sensors. We use a Nortek HUSBZB-1, which is no longer sold.", "guide": "docs/01-raspberry-pi-and-home-assistant.md"}
+      ]
+    },
+    {
+      "title": "Network",
+      "items": [
+        {"key": "asus_xt8", "asin": "", "search": "ASUS ZenWiFi mesh WiFi system", "name": "ASUS ZenWiFi mesh", "why": "We use the ZenWiFi AX (XT8) 2-pack, which Amazon no longer stocks new. Any current ZenWiFi works the same with Home Assistant. Good one to buy used.", "used": true, "guide": "docs/02-network-asus-router.md"}
+      ]
+    },
+    {
+      "title": "Bluetooth scanners (one per room)",
+      "items": [
+        {"key": "esp32", "asin": "B0D8T53CQ5", "name": "ELEGOO ESP32 dev boards, 3-pack (USB-C)", "why": "Bluetooth proxies for Home Assistant and the room tracker.", "guide": "docs/03-esp32-bluetooth-scanners.md"},
+        {"key": "usbc_cable", "asin": "B08LH5SX4V", "name": "USB-A to USB-C cables, 1 ft, 5-pack", "why": "Power and flashing. They carry data, which flashing needs.", "guide": "docs/03-esp32-bluetooth-scanners.md"},
+        {"key": "usb_wall", "asin": "B0GYMWK6K4", "name": "USB wall chargers, 5-pack (5 V 1 A)", "why": "One per board. An ESP32 needs very little power.", "guide": "docs/03-esp32-bluetooth-scanners.md"}
+      ]
+    },
+    {
+      "title": "Front door",
+      "items": [
+        {"key": "august_lock", "asin": "B082VXK9CK", "name": "August Wi-Fi Smart Lock (4th gen)", "why": "Fits over your deadbolt; your key still works. Comes with DoorSense. We bought ours used on eBay.", "used": true, "guide": "docs/05-front-door-lock.md"}
+      ]
+    },
+    {
+      "title": "Lights",
+      "intro": "Hue replaced the bulb models we own (LCA005, LCA009, LTA008) in 2025. These are the current versions of the same bulbs.",
+      "items": [
+        {"key": "hue_bridge", "asin": "B016H0QZ7I", "name": "Philips Hue Bridge", "why": "Links the bulbs to Home Assistant; works without the internet. Cheap used.", "used": true, "guide": "docs/06-hue-lights.md"},
+        {"key": "hue_a19_color", "asin": "B0FNX74DZK", "name": "Hue White and Color A19, 1100 lm, 2-pack", "why": "Most of our lamps and ceiling fixtures.", "guide": "docs/06-hue-lights.md"},
+        {"key": "hue_a21", "asin": "B0FNPK429K", "name": "Hue White and Color A21, 1600 lm, 2-pack", "why": "For tall floor lamps that need more light.", "guide": "docs/06-hue-lights.md"},
+        {"key": "hue_ambiance", "asin": "B0FMGNGKWR", "name": "Hue White Ambiance A19, 2-pack", "why": "Warm-to-cool white only, cheaper than color.", "guide": "docs/06-hue-lights.md"}
+      ]
+    },
+    {
+      "title": "Curtains",
+      "items": [
+        {"key": "switchbot_curtain", "asin": "B0F8BR5Q66", "name": "SwitchBot Curtain 3 (rod)", "why": "Clips onto your rod; Bluetooth to Home Assistant. Also sold for U-rail and I-rail: match your track.", "guide": "docs/07-switchbot-curtains.md"},
+        {"key": "switchbot_hub2", "asin": "B0BM8VS13P", "name": "SwitchBot Hub 2", "why": "Optional: puts SwitchBot on Wi-Fi for the app and voice assistants; adds a temperature sensor and IR remote.", "guide": "docs/07-switchbot-curtains.md"}
+      ]
+    },
+    {
+      "title": "Aquarium",
+      "items": [
+        {"key": "fluval_flex", "asin": "B07JDTXTGR", "name": "Fluval Flex 32.5 gal aquarium kit", "why": "Our tank. The integration needs a light that works with the FluvalSmart (Bluetooth) app: check the box before you buy.", "guide": "docs/08-fluval-aquarium.md"},
+        {"key": "zigbee_plug", "asin": "B09LV53X62", "name": "SONOFF S40 Lite Zigbee smart plug", "why": "Switches the tank's UV filter (or anything else) from Home Assistant.", "guide": "docs/08-fluval-aquarium.md"}
+      ]
+    },
+    {
+      "title": "Robot vacuum",
+      "items": [
+        {"key": "roborock_qrevo_plus_renewed", "asin": "B0FMKBBFLR", "name": "Roborock Qrevo Plus (Amazon Renewed)", "why": "Ours is refurbished. Vacuums, mops, empties itself, washes its pads.", "used": true, "guide": "docs/09-roborock-vacuum.md"},
+        {"key": "roborock_qrevo_plus", "asin": "B0D2Y8MY5T", "name": "Roborock Qrevo Plus (new / like new)", "why": "Same robot, main listing.", "guide": "docs/09-roborock-vacuum.md"}
+      ]
+    },
+    {
+      "title": "Bathroom",
+      "items": [
+        {"key": "oralb_io", "asin": "B0B5HSNPNH", "name": "Oral-B iO Series 9", "why": "Its Bluetooth state starts the bedtime routine. The iO Series 8 works too.", "guide": "docs/10-toothbrush-bedtime.md"}
+      ]
+    },
+    {
+      "title": "Also in our Home Assistant",
+      "intro": "Not needed for any guide, but they plug into Home Assistant with built-in integrations.",
+      "items": [
+        {"key": "lg_oled", "asin": "B0GRK5D3RW", "name": "LG OLED evo C6, 65\"", "why": "We have the older C2. LG webOS integration: on/off, volume, inputs, and the screen glows on the 3D dashboard."},
+        {"key": "q990d", "asin": "B0CTKV9DRP", "name": "Samsung HW-Q990D soundbar", "why": "Volume and sound modes from Home Assistant."}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+set_auto_schedule:
+  name: Set automatic schedule
+  description: >-
+    Try to program the light's on-device "automatic" schedule. The lights we
+    tested ignore this write (it only works from the FluvalSmart app), so use
+    the Home Assistant schedule in homeassistant/packages/aquarium.yaml.
+  fields:
+    address:
+      name: Address
+      description: BLE MAC of the light (optional if only one is set up).
+      required: false
+      example: "44:A6:E5:00:00:00"
+      selector:
+        text:
+    sunrise_start:
+      name: Sunrise start
+      description: When the morning ramp-up begins.
+      required: true
+      example: "08:00"
+      selector:
+        time:
+    sunrise_end:
+      name: Sunrise end (full day)
+      description: When daytime levels are fully reached.
+      required: true
+      example: "09:00"
+      selector:
+        time:
+    day:
+      name: Daytime levels
+      description: Per-channel levels 0-255 [Red, Green, Blue, White].
+      required: true
+      example: "[180, 180, 200, 255]"
+      selector:
+        object:
+    sunset_start:
+      name: Sunset start
+      description: When the evening ramp-down begins.
+      required: true
+      example: "19:00"
+      selector:
+        time:
+    sunset_end:
+      name: Sunset end (full night)
+      description: When nighttime levels are fully reached.
+      required: true
+      example: "20:00"
+      selector:
+        time:
+    night:
+      name: Nighttime levels
+      description: Per-channel levels 0-255 [Red, Green, Blue, White].
+      required: true
+      example: "[0, 0, 30, 0]"
+      selector:
+        object:
+    turnoff:
+      name: Auto-off time
+      description: Optional time to switch fully off, or omit/"off" to disable.
+      required: false
+      example: "23:00"
+      selector:
+        text:

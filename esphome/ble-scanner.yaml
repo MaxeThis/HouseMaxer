@@ -1,0 +1,81 @@
+# Reusable BLE scanner / Bluetooth proxy for the position tracker.
+# Same firmware for every board: name_add_mac_suffix gives each one a unique
+# name (ble-scanner-xxxxxx) so you can flash it onto any number of ESP32s.
+# Identify button blinks the onboard blue LED (GPIO2) for ~10 s.
+# Two quick blinks whenever Home Assistant connects = it's online.
+esphome:
+  name: ble-scanner
+  friendly_name: BLE Scanner
+  name_add_mac_suffix: true
+  min_version: 2025.5.0
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+logger:
+
+api:
+  encryption:
+    key: !secret api_encryption_key
+  on_client_connected:
+    - script.execute: hello_blink
+
+ota:
+  - platform: esphome
+
+wifi:
+  # Put these in esphome/secrets.yaml (never commit it). See secrets.example.yaml.
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+esp32_ble_tracker:
+  scan_parameters:
+    active: true
+
+bluetooth_proxy:
+  active: true
+
+output:
+  - platform: gpio
+    pin: GPIO2
+    id: locator_led
+
+script:
+  - id: identify_blink
+    mode: restart
+    then:
+      - repeat:
+          count: 40
+          then:
+            - output.turn_on: locator_led
+            - delay: 125ms
+            - output.turn_off: locator_led
+            - delay: 125ms
+  - id: hello_blink
+    mode: single
+    then:
+      - repeat:
+          count: 2
+          then:
+            - output.turn_on: locator_led
+            - delay: 100ms
+            - output.turn_off: locator_led
+            - delay: 150ms
+
+button:
+  - platform: template
+    name: Identify
+    device_class: identify
+    on_press:
+      - script.execute: identify_blink
+  - platform: restart
+    name: Restart
+  - platform: safe_mode
+    name: Safe Mode Boot
+
+sensor:
+  - platform: wifi_signal
+    name: WiFi Signal
+    update_interval: 60s
