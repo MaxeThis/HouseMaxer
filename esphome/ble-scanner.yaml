@@ -24,6 +24,8 @@ api:
 
 ota:
   - platform: esphome
+    # Without this, anyone on your network could flash new firmware onto the board.
+    password: !secret ota_password
 
 wifi:
   # Put these in esphome/secrets.yaml (never commit it). See secrets.example.yaml.

@@ -39,9 +39,9 @@ What the firmware does:
 
 **Easiest: from Home Assistant.** Install the **ESPHome Device Builder** app
 (Settings → Apps), open it, make a new device, paste in `ble-scanner.yaml`,
-and fill in its **Secrets** page with the three values from
+and fill in its **Secrets** page with the four values from
 [`secrets.example.yaml`](../esphome/secrets.example.yaml) (Wi-Fi name,
-password, and an API key), then **Install → Plug into this computer** with the board on a USB
+password, an API key and an update password), then **Install → Plug into this computer** with the board on a USB
 cable. (That page needs Chrome or Edge.)
 
 **From your computer:**

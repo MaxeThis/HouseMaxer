@@ -34,13 +34,32 @@ script:
       - action: lock.unlock
         target: {entity_id: lock.front_door}
       - delay: {seconds: 60}
-      # Don't throw the bolt into an open door: wait (up to 10 min) for DoorSense to read closed.
+      # Don't throw the bolt into an open door: wait for DoorSense to read closed.
       - wait_template: "{{ is_state('binary_sensor.front_door_door', 'off') }}"
         timeout: {minutes: 10}
-        continue_on_timeout: false
+      # Still open (or DoorSense unavailable) after 10 min: tell someone, then keep
+      # waiting so the door still locks as soon as it shuts. Never give up silently.
+      - if:
+          - condition: template
+            value_template: "{{ not wait.completed }}"
+        then:
+          - action: persistent_notification.create
+            data:
+              notification_id: front_door_left_open
+              title: Front door still open
+              message: >-
+                The door was unlocked for you 11 minutes ago and DoorSense still
+                doesn't read closed ({{ states('binary_sensor.front_door_door') }}).
+                It will lock as soon as it shuts.
+          # add a phone push here too, e.g. action: notify.mobile_app_my_phone
+          - wait_template: "{{ is_state('binary_sensor.front_door_door', 'off') }}"
+            timeout: {hours: 4}
+            continue_on_timeout: false
       - delay: {seconds: 3}
       - action: lock.lock
         target: {entity_id: lock.front_door}
+      - action: persistent_notification.dismiss
+        data: {notification_id: front_door_left_open}
 
 automation:
   - id: away_latch_set
@@ -127,6 +146,12 @@ automation:
       - condition: state
         entity_id: input_boolean.away_latch
         state: "on"
+      # Stricter, if your Wi-Fi reaches outside the door: also require the
+      # phone to be back on the home Wi-Fi. Slower (the phone has to rejoin
+      # first) but a replayed Bluetooth advert alone can't open the door.
+      # - condition: state
+      #   entity_id: device_tracker.my_phone_wifi
+      #   state: home
     actions:
       - action: script.unlock_briefly
 

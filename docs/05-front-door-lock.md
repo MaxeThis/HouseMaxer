@@ -53,7 +53,17 @@ you".
 4. **Auto-reset:** if the latch is on but the phone has been home on Wi-Fi
    *and* Bluetooth for 10 minutes, clear it.
 5. The unlock is brief: unlock, wait a minute, then lock again once DoorSense
-   says the door is shut (it never throws the bolt into an open door).
+   says the door is shut (it never throws the bolt into an open door). If the
+   door is still open after 10 minutes you get a notification, and it still
+   locks the moment the door shuts.
+
+**How safe is a Bluetooth unlock?** Your phone's Bluetooth address changes
+every few minutes and only your IRK can recognise it, so a stranger can't just
+pretend to be your phone. But someone could record your phone's signal and
+replay it nearby within that window. If your Wi-Fi reaches outside your door,
+turn on the stricter option in the file: it also waits for the phone to rejoin
+your Wi-Fi before unlocking. And turn on the August app's own auto-lock as a
+backstop.
 
 **Tune the numbers for your home.** Watch `sensor.<phone>_ble_distance` in
 Developer tools while you stand outside your door, then where you park. Pick an
