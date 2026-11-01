@@ -65,17 +65,17 @@ The full list, with what each part is for, is in **[PARTS.md](PARTS.md)**.
 
 | Part | Link |
 |---|---|
-| Raspberry Pi 5 (8 GB) | [Board](https://www.amazon.com/pi5_8gb/dp/B0CK2FCG1K?tag=housemaxer-20) · [Starter kit](https://www.amazon.com/pi5_kit/dp/B0CRSNCJ6Y?tag=housemaxer-20) · [Home Assistant Green instead](https://www.amazon.com/ha_green/dp/B0CXVKSG19?tag=housemaxer-20) |
-| microSD card | [128 GB A2](https://www.amazon.com/microsd/dp/B09X7BK27V?tag=housemaxer-20) |
-| ESP32 Bluetooth boards | [ESP32 multipack](https://www.amazon.com/esp32/dp/B0D8T53CQ5?tag=housemaxer-20) · [USB-C cables](https://www.amazon.com/usbc_cable/dp/B08LH5SX4V?tag=housemaxer-20) · [USB wall chargers](https://www.amazon.com/usb_wall/dp/B0GYMWK6K4?tag=housemaxer-20) |
-| Zigbee stick | [SONOFF ZBDongle-E](https://www.amazon.com/zigbee_alt/dp/B0B6P22YJC?tag=housemaxer-20) (ours is a HUSBZB-1, no longer sold) |
-| Wi-Fi | [ASUS ZenWiFi mesh](https://www.amazon.com/s?k=ASUS+ZenWiFi+mesh+WiFi+system&tag=housemaxer-20) (ours is the XT8, now sold used) |
-| Smart lock | [August Wi-Fi Smart Lock](https://www.amazon.com/august_lock/dp/B082VXK9CK?tag=housemaxer-20) (we bought ours used on eBay) |
-| Lights | [Hue Bridge](https://www.amazon.com/hue_bridge/dp/B016H0QZ7I?tag=housemaxer-20) · [Hue color A19](https://www.amazon.com/hue_a19_color/dp/B0FNX74DZK?tag=housemaxer-20) |
-| Curtains | [SwitchBot Curtain](https://www.amazon.com/switchbot_curtain/dp/B0F8BR5Q66?tag=housemaxer-20) · [SwitchBot Hub 2](https://www.amazon.com/switchbot_hub2/dp/B0BM8VS13P?tag=housemaxer-20) |
-| Aquarium | [Fluval Flex 32.5 gal](https://www.amazon.com/fluval_flex/dp/B07JDTXTGR?tag=housemaxer-20) · [Zigbee plug](https://www.amazon.com/zigbee_plug/dp/B09LV53X62?tag=housemaxer-20) for the UV filter |
-| Robot vacuum | [Roborock Qrevo Plus, Renewed](https://www.amazon.com/roborock_qrevo_plus_renewed/dp/B0FMKBBFLR?tag=housemaxer-20) · [main listing](https://www.amazon.com/roborock_qrevo_plus/dp/B0D2Y8MY5T?tag=housemaxer-20) |
-| Toothbrush | [Oral-B iO Series 9](https://www.amazon.com/oralb_io/dp/B0B5HSNPNH?tag=housemaxer-20) |
+| Raspberry Pi 5 (8 GB) | [Board](https://www.amazon.com/pi5_8gb/dp/B0CK2FCG1K?tag=maxestmax-20) · [Starter kit](https://www.amazon.com/pi5_kit/dp/B0CRSNCJ6Y?tag=maxestmax-20) · [Home Assistant Green instead](https://www.amazon.com/ha_green/dp/B0CXVKSG19?tag=maxestmax-20) |
+| microSD card | [128 GB A2](https://www.amazon.com/microsd/dp/B09X7BK27V?tag=maxestmax-20) |
+| ESP32 Bluetooth boards | [ESP32 multipack](https://www.amazon.com/esp32/dp/B0D8T53CQ5?tag=maxestmax-20) · [USB-C cables](https://www.amazon.com/usbc_cable/dp/B08LH5SX4V?tag=maxestmax-20) · [USB wall chargers](https://www.amazon.com/usb_wall/dp/B0GYMWK6K4?tag=maxestmax-20) |
+| Zigbee stick | [SONOFF ZBDongle-E](https://www.amazon.com/zigbee_alt/dp/B0B6P22YJC?tag=maxestmax-20) (ours is a HUSBZB-1, no longer sold) |
+| Wi-Fi | [ASUS ZenWiFi mesh](https://www.amazon.com/s?k=ASUS+ZenWiFi+mesh+WiFi+system&tag=maxestmax-20) (ours is the XT8, now sold used) |
+| Smart lock | [August Wi-Fi Smart Lock](https://www.amazon.com/august_lock/dp/B082VXK9CK?tag=maxestmax-20) (we bought ours used on eBay) |
+| Lights | [Hue Bridge](https://www.amazon.com/hue_bridge/dp/B016H0QZ7I?tag=maxestmax-20) · [Hue color A19](https://www.amazon.com/hue_a19_color/dp/B0FNX74DZK?tag=maxestmax-20) |
+| Curtains | [SwitchBot Curtain](https://www.amazon.com/switchbot_curtain/dp/B0F8BR5Q66?tag=maxestmax-20) · [SwitchBot Hub 2](https://www.amazon.com/switchbot_hub2/dp/B0BM8VS13P?tag=maxestmax-20) |
+| Aquarium | [Fluval Flex 32.5 gal](https://www.amazon.com/fluval_flex/dp/B07JDTXTGR?tag=maxestmax-20) · [Zigbee plug](https://www.amazon.com/zigbee_plug/dp/B09LV53X62?tag=maxestmax-20) for the UV filter |
+| Robot vacuum | [Roborock Qrevo Plus, Renewed](https://www.amazon.com/roborock_qrevo_plus_renewed/dp/B0FMKBBFLR?tag=maxestmax-20) · [main listing](https://www.amazon.com/roborock_qrevo_plus/dp/B0D2Y8MY5T?tag=maxestmax-20) |
+| Toothbrush | [Oral-B iO Series 9](https://www.amazon.com/oralb_io/dp/B0B5HSNPNH?tag=maxestmax-20) |
 
 **Buy the expensive things used.** Our lock came from eBay and our robot
 vacuum was refurbished. Smart locks, robot vacuums, mesh routers and Hue

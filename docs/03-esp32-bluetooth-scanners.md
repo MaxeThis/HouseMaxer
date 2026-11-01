@@ -18,9 +18,9 @@ can place you on a map; one per room works best.
 
 | Part | Link | Notes |
 |---|---|---|
-| ESP32 dev board | [ESP32-WROOM-32 multipack](https://www.amazon.com/esp32/dp/B0D8T53CQ5?tag=housemaxer-20) | Any "ESP32 DevKit" / `esp32dev` board works. Not the ESP32-S2 (no Bluetooth). |
-| USB cable | [USB-A to USB-C cables](https://www.amazon.com/usbc_cable/dp/B08LH5SX4V?tag=housemaxer-20) | Must carry data, not just power, or flashing fails. |
-| Wall power | [USB wall chargers, multipack](https://www.amazon.com/usb_wall/dp/B0GYMWK6K4?tag=housemaxer-20) | 5 V, 1 A is plenty. The cheapest ones work. |
+| ESP32 dev board | [ESP32-WROOM-32 multipack](https://www.amazon.com/esp32/dp/B0D8T53CQ5?tag=maxestmax-20) | Any "ESP32 DevKit" / `esp32dev` board works. Not the ESP32-S2 (no Bluetooth). |
+| USB cable | [USB-A to USB-C cables](https://www.amazon.com/usbc_cable/dp/B08LH5SX4V?tag=maxestmax-20) | Must carry data, not just power, or flashing fails. |
+| Wall power | [USB wall chargers, multipack](https://www.amazon.com/usb_wall/dp/B0GYMWK6K4?tag=maxestmax-20) | 5 V, 1 A is plenty. The cheapest ones work. |
 
 ## Flash them (once per board, about 3 minutes)
 

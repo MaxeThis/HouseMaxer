@@ -5,8 +5,8 @@
 The Roborock Qrevo Plus vacuums and mops, then empties itself and washes its
 mop pads at the dock.
 
-- [Roborock Qrevo Plus (Amazon Renewed)](https://www.amazon.com/roborock_qrevo_plus_renewed/dp/B0FMKBBFLR?tag=housemaxer-20)
-- [Roborock Qrevo Plus (main listing)](https://www.amazon.com/roborock_qrevo_plus/dp/B0D2Y8MY5T?tag=housemaxer-20); when we
+- [Roborock Qrevo Plus (Amazon Renewed)](https://www.amazon.com/roborock_qrevo_plus_renewed/dp/B0FMKBBFLR?tag=maxestmax-20)
+- [Roborock Qrevo Plus (main listing)](https://www.amazon.com/roborock_qrevo_plus/dp/B0D2Y8MY5T?tag=maxestmax-20); when we
   checked it had only "used, like new" stock
 
 **We bought ours refurbished**, and for a robot vacuum we would again: it is

@@ -6,7 +6,7 @@ Every device in this build uses the Wi-Fi, so it has to reach every
 corner. We use an ASUS ZenWiFi AX (XT8) two-pack: two mesh units, one by the
 modem and one at the far end of the home, so the ESP32 boards and the robot
 vacuum never drop off. The XT8 is no longer sold new; buy one used, or any
-[current ASUS ZenWiFi](https://www.amazon.com/s?k=ASUS+ZenWiFi+mesh+WiFi+system&tag=housemaxer-20). All of them have the features below.
+[current ASUS ZenWiFi](https://www.amazon.com/s?k=ASUS+ZenWiFi+mesh+WiFi+system&tag=maxestmax-20). All of them have the features below.
 
 ## What the router does for Home Assistant
 

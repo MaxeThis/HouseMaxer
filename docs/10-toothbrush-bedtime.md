@@ -3,7 +3,7 @@
 > *Product links on this page are Amazon affiliate links. As an Amazon Associate HouseMaxer earns from qualifying purchases.*
 
 Our favourite automation, and the cheapest if you already own the brush. The
-[Oral-B iO Series 9](https://www.amazon.com/oralb_io/dp/B0B5HSNPNH?tag=housemaxer-20) sends out its state over Bluetooth, and
+[Oral-B iO Series 9](https://www.amazon.com/oralb_io/dp/B0B5HSNPNH?tag=maxestmax-20) sends out its state over Bluetooth, and
 Home Assistant hears it through the ESP32 proxies.
 
 **Brush your teeth after 9 PM and the house gets ready for bed:**

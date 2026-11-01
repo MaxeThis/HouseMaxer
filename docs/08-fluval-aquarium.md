@@ -2,7 +2,7 @@
 
 > *Product links on this page are Amazon affiliate links. As an Amazon Associate HouseMaxer earns from qualifying purchases.*
 
-Our [Fluval Flex 32.5 gallon](https://www.amazon.com/fluval_flex/dp/B07JDTXTGR?tag=housemaxer-20) has an LED light you control
+Our [Fluval Flex 32.5 gallon](https://www.amazon.com/fluval_flex/dp/B07JDTXTGR?tag=maxestmax-20) has an LED light you control
 from the FluvalSmart phone app over Bluetooth. There was no Home Assistant
 support for it, so we wrote one:
 [`custom_components/fluval_ble`](../custom_components/fluval_ble/).
@@ -21,7 +21,7 @@ What you get:
 - a **light**: on/off, brightness and colour (red, green, blue, white channels);
 - a **mode** picker: manual / automatic / professional (the app's three modes).
 
-The tank's UV filter sits on a cheap [Zigbee smart plug](https://www.amazon.com/zigbee_plug/dp/B09LV53X62?tag=housemaxer-20), so
+The tank's UV filter sits on a cheap [Zigbee smart plug](https://www.amazon.com/zigbee_plug/dp/B09LV53X62?tag=maxestmax-20), so
 Home Assistant can switch it too.
 
 ## Install

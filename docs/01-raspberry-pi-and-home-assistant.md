@@ -12,8 +12,8 @@ Z-Wave (a USB stick).
 
 | | What you buy | Time to set up | Can it run other things? | About |
 |---|---|---|---|---|
-| **1. Plug and play** | [Home Assistant Green](https://www.amazon.com/ha_green/dp/B0CXVKSG19?tag=housemaxer-20) | 10 minutes | No. Home Assistant only (plus its apps). | $$ |
-| **2. Kit** | [Raspberry Pi 5 starter kit](https://www.amazon.com/pi5_kit/dp/B0CRSNCJ6Y?tag=housemaxer-20) (board, case, fan, power supply, microSD) | An evening | Yes | $$$ |
+| **1. Plug and play** | [Home Assistant Green](https://www.amazon.com/ha_green/dp/B0CXVKSG19?tag=maxestmax-20) | 10 minutes | No. Home Assistant only (plus its apps). | $$ |
+| **2. Kit** | [Raspberry Pi 5 starter kit](https://www.amazon.com/pi5_kit/dp/B0CRSNCJ6Y?tag=maxestmax-20) (board, case, fan, power supply, microSD) | An evening | Yes | $$$ |
 | **3. Piece by piece** | Pi 5 board, power supply, cooler or case, microSD (list below) | An evening | Yes | $$–$$$ |
 
 **Pick 1** if you only want Home Assistant and never want to open a terminal.
@@ -29,10 +29,10 @@ card) or want to choose each one. This is what we did. You need all four of:
 
 | Part | What we use | Why |
 |---|---|---|
-| Board | [Raspberry Pi 5, 8 GB](https://www.amazon.com/pi5_8gb/dp/B0CK2FCG1K?tag=housemaxer-20) | 4 GB runs Home Assistant fine. 8 GB leaves room for other programs beside it. |
-| Power | [Official 27 W USB-C power supply](https://www.amazon.com/pi5_psu/dp/B0D3MFLNC1?tag=housemaxer-20) | The Pi 5 wants 5 V at 5 A. Phone chargers make it throttle its USB ports, and the Zigbee stick lives on one. |
-| Cooling | [Official Active Cooler](https://www.amazon.com/pi5_cooler/dp/B0CLXZBR5P?tag=housemaxer-20) or [official case with fan](https://www.amazon.com/pi5_case/dp/B0CLY2974P?tag=housemaxer-20) | A Pi 5 without cooling slows itself down under load. |
-| Storage | [128 GB A2 microSD](https://www.amazon.com/microsd/dp/B09X7BK27V?tag=housemaxer-20) | Home Assistant writes to disk all day. Buy a known brand with an A2 rating. Ours has 115 GB and uses 15. |
+| Board | [Raspberry Pi 5, 8 GB](https://www.amazon.com/pi5_8gb/dp/B0CK2FCG1K?tag=maxestmax-20) | 4 GB runs Home Assistant fine. 8 GB leaves room for other programs beside it. |
+| Power | [Official 27 W USB-C power supply](https://www.amazon.com/pi5_psu/dp/B0D3MFLNC1?tag=maxestmax-20) | The Pi 5 wants 5 V at 5 A. Phone chargers make it throttle its USB ports, and the Zigbee stick lives on one. |
+| Cooling | [Official Active Cooler](https://www.amazon.com/pi5_cooler/dp/B0CLXZBR5P?tag=maxestmax-20) or [official case with fan](https://www.amazon.com/pi5_case/dp/B0CLY2974P?tag=maxestmax-20) | A Pi 5 without cooling slows itself down under load. |
+| Storage | [128 GB A2 microSD](https://www.amazon.com/microsd/dp/B09X7BK27V?tag=maxestmax-20) | Home Assistant writes to disk all day. Buy a known brand with an A2 rating. Ours has 115 GB and uses 15. |
 
 You also need a microSD card reader for your computer (most kits include one)
 and an Ethernet cable.
@@ -41,7 +41,7 @@ and an Ethernet cable.
 
 Zigbee plugs and sensors need a USB radio. We use a Nortek HUSBZB-1, which
 does Zigbee and Z-Wave in one stick, but it is no longer sold. For Zigbee get a
-[SONOFF ZBDongle-E](https://www.amazon.com/zigbee_alt/dp/B0B6P22YJC?tag=housemaxer-20) (or Home Assistant's own Connect ZBT-2 from
+[SONOFF ZBDongle-E](https://www.amazon.com/zigbee_alt/dp/B0B6P22YJC?tag=maxestmax-20) (or Home Assistant's own Connect ZBT-2 from
 their site); add a separate Z-Wave stick only if you own Z-Wave devices. Plug the stick into a short USB extension
 cable, not straight into the Pi: the Pi's own USB 3 ports put out noise that
 drowns Zigbee.

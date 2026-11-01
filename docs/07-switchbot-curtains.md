@@ -2,13 +2,13 @@
 
 > *Product links on this page are Amazon affiliate links. As an Amazon Associate HouseMaxer earns from qualifying purchases.*
 
-Two [SwitchBot Curtain](https://www.amazon.com/switchbot_curtain/dp/B0F8BR5Q66?tag=housemaxer-20) motors pull our bedroom
+Two [SwitchBot Curtain](https://www.amazon.com/switchbot_curtain/dp/B0F8BR5Q66?tag=maxestmax-20) motors pull our bedroom
 curtains open and shut. They clip onto the rod you already have, run on a
 battery (charge every few months, or add the solar panel), and come off when
 you move out. Buy the version that matches your rod: **rod**, **U-rail** or
 **I-rail**.
 
-The [SwitchBot Hub 2](https://www.amazon.com/switchbot_hub2/dp/B0BM8VS13P?tag=housemaxer-20) is optional with Home Assistant, but
+The [SwitchBot Hub 2](https://www.amazon.com/switchbot_hub2/dp/B0BM8VS13P?tag=maxestmax-20) is optional with Home Assistant, but
 we use it: it puts the curtains on Wi-Fi for the SwitchBot app and voice
 assistants, and it has a temperature and humidity sensor and an IR blaster.
 

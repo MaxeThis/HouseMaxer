@@ -2,7 +2,7 @@
 
 > *Product links on this page are Amazon affiliate links. As an Amazon Associate HouseMaxer earns from qualifying purchases.*
 
-We use an [August Wi-Fi Smart Lock (4th gen)](https://www.amazon.com/august_lock/dp/B082VXK9CK?tag=housemaxer-20) (August is part
+We use an [August Wi-Fi Smart Lock (4th gen)](https://www.amazon.com/august_lock/dp/B082VXK9CK?tag=maxestmax-20) (August is part
 of Yale now). It fits over the inside half of your existing deadbolt, so the
 key outside still works and a renter can put the old one back when they move
 out. It comes with **DoorSense**, a small magnet that tells it whether the door

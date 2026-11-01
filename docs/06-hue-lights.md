@@ -2,13 +2,13 @@
 
 > *Product links on this page are Amazon affiliate links. As an Amazon Associate HouseMaxer earns from qualifying purchases.*
 
-We run 15 Hue bulbs on one [Hue Bridge](https://www.amazon.com/hue_bridge/dp/B016H0QZ7I?tag=housemaxer-20):
+We run 15 Hue bulbs on one [Hue Bridge](https://www.amazon.com/hue_bridge/dp/B016H0QZ7I?tag=maxestmax-20):
 
 | Bulb | How many | Where |
 |---|---|---|
-| [Hue White and Color A19](https://www.amazon.com/hue_a19_color/dp/B0FNX74DZK?tag=housemaxer-20) | 11 | table lamps, ceiling fixtures, shelf lamps |
-| [Hue White and Color A21, 1600 lm](https://www.amazon.com/hue_a21/dp/B0FNPK429K?tag=housemaxer-20) | 1 | a tall floor lamp (needs the extra light) |
-| [Hue White Ambiance A19](https://www.amazon.com/hue_ambiance/dp/B0FMGNGKWR?tag=housemaxer-20) | 1 | bottom of a paper column lamp |
+| [Hue White and Color A19](https://www.amazon.com/hue_a19_color/dp/B0FNX74DZK?tag=maxestmax-20) | 11 | table lamps, ceiling fixtures, shelf lamps |
+| [Hue White and Color A21, 1600 lm](https://www.amazon.com/hue_a21/dp/B0FNPK429K?tag=maxestmax-20) | 1 | a tall floor lamp (needs the extra light) |
+| [Hue White Ambiance A19](https://www.amazon.com/hue_ambiance/dp/B0FMGNGKWR?tag=maxestmax-20) | 1 | bottom of a paper column lamp |
 | Older Hue color A19s | 2 | the same column lamp |
 
 Hue replaced these bulb models in 2025; the links go to the current versions.
