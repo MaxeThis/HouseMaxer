@@ -59,11 +59,9 @@ you".
 
 **How safe is a Bluetooth unlock?** Your phone's Bluetooth address changes
 every few minutes and only your IRK can recognise it, so a stranger can't just
-pretend to be your phone. But someone could record your phone's signal and
-replay it nearby within that window. If your Wi-Fi reaches outside your door,
-turn on the stricter option in the file: it also waits for the phone to rejoin
-your Wi-Fi before unlocking. And turn on the August app's own auto-lock as a
-backstop.
+pretend to be your phone. Someone could, in theory, record your phone's signal
+and replay it by your door within those few minutes, but only while the latch
+is armed and only once. Turn on the August app's own auto-lock as a backstop.
 
 **Tune the numbers for your home.** Watch `sensor.<phone>_ble_distance` in
 Developer tools while you stand outside your door, then where you park. Pick an

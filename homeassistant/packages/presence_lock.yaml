@@ -146,12 +146,6 @@ automation:
       - condition: state
         entity_id: input_boolean.away_latch
         state: "on"
-      # Stricter, if your Wi-Fi reaches outside the door: also require the
-      # phone to be back on the home Wi-Fi. Slower (the phone has to rejoin
-      # first) but a replayed Bluetooth advert alone can't open the door.
-      # - condition: state
-      #   entity_id: device_tracker.my_phone_wifi
-      #   state: home
     actions:
       - action: script.unlock_briefly
 
